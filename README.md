@@ -1,7 +1,8 @@
 # TonUINO
 Die DIY Musikbox (nicht nur) für Kinder
 
-Dies ist die offizielle Software für die Musikbox, die [hier](https://www.tonuino.de/TNG) beschrieben ist. 
+Dies ist eine Abwandlung der offizielle Software für die Musikbox, die [hier](https://www.tonuino.de/TNG) beschrieben ist.
+Es werden MPR121 Touch Buttons benutzt bei meiner Tonuino Box.
 
 Falls du Interesse daran hast, zur Weiterentwicklung des TonUINO-Projekts beizutragen, bist du herzlich eingeladen, dich zu beteiligen. Für Diskussionen verwende bitte das [Forum](https://discourse.voss.earth). Dort findest du auch weitere Anleitungen und bekommst Hilfe bei Problemen. 
 
