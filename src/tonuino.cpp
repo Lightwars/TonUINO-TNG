@@ -80,6 +80,9 @@ void Tonuino::setup() {
   ring.init();
   ring.call_on_startup();
 #endif
+#ifdef MPR121TOUCH
+  buttons.init();
+#endif
 
   // load Settings from EEPROM
   settings.loadSettingsFromFlash();

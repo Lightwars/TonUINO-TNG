@@ -13,7 +13,7 @@ inline constexpr uint8_t  brightness_pulse_max = 200;
 inline constexpr uint8_t  brightness_pulse_min =  50;
 
 inline constexpr uint8_t  brightness_max   = 32;
-inline constexpr uint8_t  brightness_init  = 16;
+inline constexpr uint8_t  brightness_init  = 8;
 
 enum class direction: uint8_t {
   cw,

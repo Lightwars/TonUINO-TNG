@@ -238,6 +238,7 @@ void Chip_card::sleepCard() {
 void Chip_card::initCard() {
   SPI.begin();                                                    // Init SPI bus
   mfrc522.PCD_Init();                                             // Init MFRC522
+  mfrc522.PCD_SetAntennaGain(mfrc522.RxGain_43dB);
   LOG(card_log, s_info, F("MFRC522:"), mfrc522.PCD_ReadRegister(MFRC522::VersionReg));
   // Show MFRC522 Card Reader version
   // 0 or 255: communication  error)

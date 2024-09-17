@@ -71,7 +71,7 @@
 /* Select the right PCB by uncommenting one of the following lines
  * Bitte die passende Platine durch entfernen der Kommentare in einer der folgenden Zeilen auswählen
  */
-//#define TonUINO_Classic
+#define TonUINO_Classic
 //#define TonUINO_Every
 //#define TonUINO_Every_4808
 //#define ALLinONE
@@ -84,9 +84,11 @@
  * default: THREEBUTTONS for classic/every
  *          FIVEBUTTONS  for AiO and AiO+
  */
-//#define THREEBUTTONS
+#define THREEBUTTONS
 //#define FIVEBUTTONS
 //#define BUTTONS3X3
+#define MPR121TOUCH
+//#define DEBUG_MPR121
 
 // ######################################################################
 
@@ -104,7 +106,7 @@
  * -1: up/downLong -2: down       -3: downLong
  * number n > 0: Springe im Voice Menü zum n-ten Eintrag und selektiere ihn
  */
-#define SerialInputAsCommand
+// #define SerialInputAsCommand
 
 // ######################################################################
 
@@ -120,18 +122,18 @@
  *              bad behavior of callback OnPlayFinished - it is also called on advertise tracks
  * LKP Player:  no ACK for requests (use Mp3ChipIncongruousNoAck for them)
  */
-//#define DFMiniMp3_T_CHIP_GD3200B
+#define DFMiniMp3_T_CHIP_GD3200B
 //#define DFMiniMp3_T_CHIP_MH2024K16SS
 //#define DFMiniMp3_T_CHIP_LISP3
 //#define DFMiniMp3_T_CHIP_MH2024K24SS_MP3_TF_16P_V3_0
-#define DFMiniMp3_T_CHIP_Mp3ChipIncongruousNoAck
+//#define DFMiniMp3_T_CHIP_Mp3ChipIncongruousNoAck
 
 // ######################################################################
 
 /* uncomment the below line to disable shutdown via button (long press play/pause)
  * um ein Shutdown via Taste (long press Play/Pause) zu unterdrücken bitte in der nächste Zeile den Kommentar entfernen
  */
-//#define DISABLE_SHUTDOWN_VIA_BUTTON
+#define DISABLE_SHUTDOWN_VIA_BUTTON
 
 // ######################################################################
 
@@ -176,16 +178,16 @@ inline constexpr uint8_t   potiPin    = A3 ; // AiO/Classic A3
  * um den Neo Ring zu unterstützen bitte in der nächste Zeile den Kommentar entfernen
  * um weitere Features einzuschalten, auch den Kommentar für NEO_RING_EXT entfernen
  */
-//#define NEO_RING
-//#define NEO_RING_EXT
+#define NEO_RING
+#define NEO_RING_EXT
 //#define NEO_RING_2
 
 #ifdef ALLinONE_Plus
 inline constexpr uint8_t neoPixelRingPin = 10; // PB2 on AiOplus (Erweiterungsleiste (Female))
 #else
-inline constexpr uint8_t neoPixelRingPin =  5; // D5 on AiO/Classic
+inline constexpr uint8_t neoPixelRingPin =  6; // D6 on AiO/Classic
 #endif // ALLinONE_Plus
-inline constexpr uint8_t neoPixelNumber  = 24; // Total Number of Pixels
+inline constexpr uint8_t neoPixelNumber  = 12; // Total Number of Pixels
 #ifdef NEO_RING_2
 #ifdef ALLinONE_Plus
 inline constexpr uint8_t neoPixelRingPin2= 14; // PC0 on AiOplus (Erweiterungsleiste (Female))
@@ -234,14 +236,14 @@ inline constexpr levelType     dfPlayer_noHeadphoneJackDetectType = levelType::a
  * um die Wiedergabe fortzusetzen, wenn die selbe RFID erkannt wird, die bereits
  * abgespielt wird, in der nächste Zeile den Kommentar entfernen
  */
-//#define RESUME_ON_SAME_RFID
+#define RESUME_ON_SAME_RFID
 
 /* uncomment the below line to replay the last card or short cut if pressed play/pause
  * in Idle state
  * um die letzte Karte oder den letzten Short Cut wieder abzuspielen, wenn die Play/Pause Taste
  * im Idle State gedrückt wird, in der nächste Zeile den Kommentar entfernen
  */
-//#define REPLAY_ON_PLAY_BUTTON
+#define REPLAY_ON_PLAY_BUTTON
 
 // ######################################################################
 
@@ -345,8 +347,14 @@ inline constexpr uint32_t  buttonLongPressRepeat =  200; // timeout for long pre
 
 #if defined(TonUINO_Classic) or defined(TonUINO_Every) or defined(TonUINO_Every_4808)
 // ####### buttons #####################################
-
+#if defined(MPR121TOUCH)
+#ifndef _BV
+#define _BV(bit) (1 << (bit)) 
+#endif
+inline constexpr uint8_t   buttonPausePin  = _BV(1);
+#else
 inline constexpr uint8_t   buttonPausePin  = A0;
+#endif
 
 #if defined(BUTTONS3X3)
 inline constexpr uint8_t   button3x3Pin    = A3;
@@ -359,8 +367,13 @@ inline constexpr uint8_t   buttonDownPin   = A4;
 inline constexpr uint8_t   buttonFourPin   = A1;
 inline constexpr uint8_t   buttonFivePin   = A2;
 #else
+#if defined(MPR121TOUCH)
+inline constexpr uint8_t   buttonUpPin     = _BV(0);
+inline constexpr uint8_t   buttonDownPin   = _BV(2);
+#else
 inline constexpr uint8_t   buttonUpPin     = A1;
 inline constexpr uint8_t   buttonDownPin   = A2;
+#endif
 #endif
 
 inline constexpr levelType buttonPinType   = levelType::activeLow;
